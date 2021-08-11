@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Создать новый аккаунт</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="fragments :: header"></header>
+<div><h3 align="center">Добро пожаловать: </h3><h3 th:text="${username}" align="center"/></div>
+<div class="container mt-5 mb-5">
+    <h1>Создание аккаунта</h1>
+    <form action="/student/add" method="post">
+        <input type="text" name="surName" placeholder="Введите фамилию" class="form-control"><br>
+        <input type="text" name="firstName" placeholder="Введите имя" class="form-control"><br>
+        <input type="text" name="lastName" placeholder="Введите отчество" class="form-control"><br>
+        <input type="number" name="group" placeholder="Введите группу" class="form-control"><br>
+        <button type="submit" class="btn btn-success">Добавить пользователя</button><br>
+    </form>
+</div>
+<div class="container mt-5 mb-5">
+    <h1>Импорт из файла</h1>
+    <form action="/student/fromFile" enctype="multipart/form-data" method="post">
+        <input type="file" name="file" placeholder="Файл" class="form-control"><br>
+        <button type="submit" class="btn btn-success">Добавить пользователя</button><br>
+    </form>
+</div>
+<div th:insert="fragments :: footer"></div>
+</body>
+</html>
