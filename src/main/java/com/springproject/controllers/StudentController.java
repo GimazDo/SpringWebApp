@@ -44,16 +44,16 @@ public class StudentController {
         return "student/showStudent";
     }
     
-    @PostMapping("/student/add")
-    public String addStudent(@RequestParam String firstName,
-                             @RequestParam String surName,
-                             @RequestParam String lastName,
-                             @RequestParam int group, Model model)
-    {
-        Student student = new Student(firstName,surName,lastName,group);
-        studentRepository.save(student);
-        return "home";
-    }
+//    @PostMapping("/student/add")
+//    public String addStudent(@RequestParam String firstName,
+//                             @RequestParam String surName,
+//                             @RequestParam String lastName,
+//                             @RequestParam int group, Model model)
+//    {
+//        Student student = new Student(firstName,surName,lastName,group);
+//        studentRepository.save(student);
+//        return "home";
+//    }
 
     @GetMapping("/student/showAllPanel")
     public String showSt(Model model)
@@ -62,43 +62,43 @@ public class StudentController {
         model.addAttribute("students", students);
         return "student/showStudentPanel";
     }
-    @PostMapping("/student/fromFile")
-    public String convertFromFile(@RequestParam MultipartFile file)
-    {
-        Iterable<Student> students = convertFromExelToDB(file);
-        studentRepository.saveAll(students);
-        return "home";
-    }
-    @GetMapping("/student")
-    public String showSort(Model model)
-    {
-        return "studentMain";
-    }
-
-
-    public Iterable<Student> convertFromExelToDB(MultipartFile file)
-    {
-        ArrayList<Student> students = new ArrayList<Student>();
-        String firstName = "", surName="",lastName=""; int gruppa =0;
-        try {
-            String text = new BufferedReader(
-                    new InputStreamReader( file.getInputStream(), StandardCharsets.UTF_16))
-                    .lines()
-                    .collect(Collectors.joining("\n"));
-            System.out.println(text);
-            String[] ss = text.split("\n");
-            for (String s: ss) {
-                char tab = '\t';
-                String[] st = s.split(String.valueOf(tab));
-                Student student = new Student(st[1],st[0],st[2],Integer.parseInt(st[3]));
-                students.add(student);
-            }
-        }
-        catch (IOException sa)
-        {
-
-        }
-        return students;
-    }
+//    @PostMapping("/student/fromFile")
+//    public String convertFromFile(@RequestParam MultipartFile file)
+//    {
+//        Iterable<Student> students = convertFromExelToDB(file);
+//        studentRepository.saveAll(students);
+//        return "home";
+//    }
+//    @GetMapping("/student")
+//    public String showSort(Model model)
+//    {
+//        return "studentMain";
+//    }
+//
+//
+//    public Iterable<Student> convertFromExelToDB(MultipartFile file)
+//    {
+//        ArrayList<Student> students = new ArrayList<Student>();
+//        String firstName = "", surName="",lastName=""; int gruppa =0;
+//        try {
+//            String text = new BufferedReader(
+//                    new InputStreamReader( file.getInputStream(), StandardCharsets.UTF_16))
+//                    .lines()
+//                    .collect(Collectors.joining("\n"));
+//            System.out.println(text);
+//            String[] ss = text.split("\n");
+//            for (String s: ss) {
+//                char tab = '\t';
+//                String[] st = s.split(String.valueOf(tab));
+//                Student student = new Student(st[1],st[0],st[2],Integer.parseInt(st[3]));
+//                students.add(student);
+//            }
+//        }
+//        catch (IOException sa)
+//        {
+//
+//        }
+//        return students;
+//    }
 
 }
