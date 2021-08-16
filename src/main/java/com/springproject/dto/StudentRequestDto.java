@@ -13,4 +13,5 @@ public class StudentRequestDto {
     private long profileTicket;
     private StudyForm studyForm;
     private int yearOfJoining;
+
 }

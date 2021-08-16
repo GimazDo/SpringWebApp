@@ -28,12 +28,12 @@ public class StudentRestController {
     public @ResponseBody String saveStudent(@RequestBody StudentRequestDto s)
     {
         try {
-            studentRepository.save(Student.fromDto(s));
+            studentRepository.save(new Student(s));
             return "success";
         }
         catch (Exception e)
         {
-            log.warn("cannot save user {} \n Exception msg: {}", s.toString(),e.getMessage());
+            log.warn("IN saveStudent: cannot save user {} \n Exception msg: {}", s.toString(),e.getMessage());
             return "failed";
         }
     }

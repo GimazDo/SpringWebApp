@@ -38,16 +38,41 @@ public class Student {
     private StudyForm studyForm;
 
 
-
-
+    public Student(String firstName, String surName, String lastName, int group, int faculty, int yearOfJoining, long profileTicket, StudyForm studyForm) {
+        this.firstName = firstName;
+        this.surName = surName;
+        this.lastName = lastName;
+        this.group = group;
+        this.faculty = faculty;
+        this.yearOfJoining = yearOfJoining;
+        this.profileTicket = profileTicket;
+        this.studyForm = studyForm;
+    }
 
     public Student() {
     }
 
-   //Доделать
-    public static Student fromDto(StudentRequestDto s)
-    {
-        return new Student();
+    public Student (StudentRequestDto s) {
+        this.firstName = s.getFirstName();
+        this.surName = s.getSurName();
+        this.lastName = s.getLastName();
+        this.group = s.getGroup();
+        this.faculty = s.getFaculty();
+        this.yearOfJoining = s.getYearOfJoining();
+        this.profileTicket = s.getProfileTicket();
+        this.studyForm = s.getStudyForm();
     }
+    public StudentRequestDto toDto()
+    {
+        StudentRequestDto studentRequestDto = new StudentRequestDto();
+        studentRequestDto.setFirstName(getFirstName());
+        studentRequestDto.setSurName(getSurName());
+        studentRequestDto.setGroup(getGroup());
+        studentRequestDto.setFaculty(getFaculty());
+        studentRequestDto.setStudyForm(getStudyForm());
+        studentRequestDto.setYearOfJoining(getYearOfJoining());
+        studentRequestDto.setProfileTicket(getProfileTicket());
 
+        return studentRequestDto;
+    }
 }
