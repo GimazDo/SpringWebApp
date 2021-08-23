@@ -1,7 +1,7 @@
 package com.springproject.controllers;
 
-import com.springproject.entities.Student;
-import com.springproject.entities.StudyForm;
+import com.springproject.entities.student.Student;
+import com.springproject.entities.student.StudyForm;
 import com.springproject.repos.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
     @Autowired
     private StudentRepository studentRepository;
     @GetMapping("/add")
@@ -74,14 +72,14 @@ public class StudentController {
         model.addAttribute("students", students);
         return "student/showStudentPanel";
     }
-    @PostMapping("/student/fromFile")
+    @PostMapping("/fromFile")
     public String convertFromFile(@RequestParam MultipartFile file)
     {
         List<Student> students = convertFromExelToDB(file);
         studentRepository.saveAll(students);
         return "home";
     }
-    @GetMapping("/student")
+    @GetMapping("/")
     public String showSort(Model model)
     {
         return "studentMain";
@@ -103,7 +101,7 @@ public class StudentController {
 
                 StudyForm studyForm;
                 String[] st = s.split(String.valueOf(tab));
-                if(st[7] == StudyForm.contract.name()) {
+                if(st[7] == "K") {
                     studyForm = StudyForm.contract;
                 }
                 else

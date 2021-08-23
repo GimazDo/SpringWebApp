@@ -1,6 +1,6 @@
 package com.springproject.repos;
 
-import com.springproject.entities.Student;
+import com.springproject.entities.student.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 

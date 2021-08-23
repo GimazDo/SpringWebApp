@@ -1,15 +1,10 @@
 package com.springproject.controllers.rest;
 
-import com.fasterxml.jackson.core.JsonParser;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springproject.entities.Role;
 import com.springproject.entities.User;
 import com.springproject.services.UserService;
-import netscape.javascript.JSObject;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;

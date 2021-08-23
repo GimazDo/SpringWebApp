@@ -1,4 +1,4 @@
-package com.springproject.entities;
+package com.springproject.entities.student;
 
 public enum StudyForm {
 

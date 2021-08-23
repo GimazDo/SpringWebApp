@@ -1,6 +1,6 @@
 package com.springproject.dto;
 
-import com.springproject.entities.StudyForm;
+import com.springproject.entities.student.StudyForm;
 import lombok.Data;
 
 @Data

@@ -1,4 +1,4 @@
-package com.springproject.entities;
+package com.springproject.entities.student;
 
 import com.springproject.dto.StudentRequestDto;
 import lombok.Data;
@@ -38,7 +38,14 @@ public class Student {
     private StudyForm studyForm;
 
 
-    public Student(String firstName, String surName, String lastName, int group, int faculty, int yearOfJoining, long profileTicket, StudyForm studyForm) {
+    public Student(String firstName,
+                   String surName,
+                   String lastName,
+                   int group,
+                   int faculty,
+                   int yearOfJoining,
+                   long profileTicket,
+                   StudyForm studyForm) {
         this.firstName = firstName;
         this.surName = surName;
         this.lastName = lastName;

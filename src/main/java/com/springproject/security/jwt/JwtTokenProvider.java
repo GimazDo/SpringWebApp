@@ -29,21 +29,19 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.token.secret}")
-    private String secret;
-
-    @Value("${jwt.token.expired}")
-    private long validityInMilliseconds;
+    private String secret = "jwtappdemo";
 
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private Long validityInMilliseconds =3600000L;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+
+    private final UserDetailsService userDetailsService;
+
+    public JwtTokenProvider(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
+
+
 
     @PostConstruct
     protected void init() {
@@ -56,7 +54,7 @@ public class JwtTokenProvider {
         claims.put("roles", getRoleNames(roles));
 
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validity = new Date(now.getTime() + validityInMilliseconds );
 
         return Jwts.builder()//
                 .setClaims(claims)//

@@ -2,9 +2,8 @@ package com.springproject.controllers.rest;
 
 
 import com.springproject.dto.StudentRequestDto;
-import com.springproject.entities.Student;
+import com.springproject.entities.student.Student;
 import com.springproject.repos.StudentRepository;
-import com.springproject.repos.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
