@@ -1,12 +1,17 @@
 package com.springproject.entities.student;
 
 import com.springproject.dto.StudentRequestDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="student")
 public class Student {
     @Id
@@ -14,13 +19,13 @@ public class Student {
     private Long id;
 
     @Column(name="first_name")
-    private String firstName;
+    private java.lang.String firstName;
 
     @Column(name = "sur_name")
-    private String surName;
+    private java.lang.String surName;
 
     @Column(name = "last_name")
-    private String lastName;
+    private java.lang.String lastName;
 
     @Column(name = "gruppa")
     private int group;
@@ -31,21 +36,25 @@ public class Student {
     @Column(name = "year_of_joining")
     private int yearOfJoining;
 
-    @Column(name = "profile_ticket")
+    @Column(name = "profile_ticket", unique = true)
     private long profileTicket;
 
     @Column(name = "study_form")
-    private StudyForm studyForm;
+    private String studyForm;
 
+    @OneToMany(mappedBy = "student")
+    Set<StudentSemesterOplata> oplata;
 
-    public Student(String firstName,
-                   String surName,
-                   String lastName,
+    @OneToMany(mappedBy = "student")
+    Set<StudentSemesterGrants> grants;
+    public Student(java.lang.String firstName,
+                   java.lang.String surName,
+                   java.lang.String lastName,
                    int group,
                    int faculty,
                    int yearOfJoining,
                    long profileTicket,
-                   StudyForm studyForm) {
+                   String studyForm) {
         this.firstName = firstName;
         this.surName = surName;
         this.lastName = lastName;
@@ -56,9 +65,6 @@ public class Student {
         this.studyForm = studyForm;
     }
 
-    public Student() {
-    }
-
     public Student (StudentRequestDto s) {
         this.firstName = s.getFirstName();
         this.surName = s.getSurName();
@@ -67,7 +73,7 @@ public class Student {
         this.faculty = s.getFaculty();
         this.yearOfJoining = s.getYearOfJoining();
         this.profileTicket = s.getProfileTicket();
-        this.studyForm = s.getStudyForm();
+        this.studyForm = s.getString();
     }
     public StudentRequestDto toDto()
     {
@@ -76,7 +82,7 @@ public class Student {
         studentRequestDto.setSurName(getSurName());
         studentRequestDto.setGroup(getGroup());
         studentRequestDto.setFaculty(getFaculty());
-        studentRequestDto.setStudyForm(getStudyForm());
+        studentRequestDto.setString(getStudyForm());
         studentRequestDto.setYearOfJoining(getYearOfJoining());
         studentRequestDto.setProfileTicket(getProfileTicket());
 

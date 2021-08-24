@@ -1,41 +1,46 @@
 package com.springproject.configs;
 
 
-import com.springproject.security.jwt.JwtConfigurer;
-import com.springproject.security.jwt.JwtTokenFilter;
-import com.springproject.security.jwt.JwtTokenProvider;
+import com.springproject.filters.CustomAuthenticationFilter;
+import com.springproject.filters.CustomAuthorizationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+    private final UserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    private JwtTokenProvider jwtTokenProvider;
-
-
-    @Autowired
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-
-
 
     @Override
     public void configure(HttpSecurity http) throws Exception
     {
-         JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider);
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+
         http
                 .httpBasic().disable()
                 .csrf().disable()
@@ -43,18 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                     .antMatchers("/student/**").authenticated()
                     .antMatchers("/profile/**").authenticated()
+                .antMatchers("/api/user/**").authenticated()
                     .antMatchers("/api/login/**").permitAll()
-                    .antMatchers("/api/**").authenticated()
-                    .antMatchers("/account/**").permitAll()
-                    .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .and()
-                    .formLogin()
-                .and()
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                    .logout()
-                        .logoutSuccessUrl("/")
-                .and()
-                    .apply(new JwtConfigurer(jwtTokenProvider));
+
+                    .antMatchers("/login/**").permitAll()
+                    .antMatchers("/admin/**").hasAnyRole("ADMIN");
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 //    @Bean

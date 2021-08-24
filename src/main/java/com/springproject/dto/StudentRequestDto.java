@@ -1,17 +1,17 @@
 package com.springproject.dto;
 
-import com.springproject.entities.student.StudyForm;
+
 import lombok.Data;
 
 @Data
 public class StudentRequestDto {
-    private String firstName;
-    private String surName;
-    private String lastName;
+    private java.lang.String firstName;
+    private java.lang.String surName;
+    private java.lang.String lastName;
     private int group;
     private int faculty;
     private long profileTicket;
-    private StudyForm studyForm;
+    private String string;
     private int yearOfJoining;
 
 }
