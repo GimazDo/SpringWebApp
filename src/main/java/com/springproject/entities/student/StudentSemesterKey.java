@@ -13,10 +13,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class StudentSemesterOplataKey implements Serializable {
+public class StudentSemesterKey implements Serializable {
     @Column(name = "student_id")
     Long studentId;
 
-    @Column(name = "semestr_id")
+    @Column(name = "semester_id")
     Long semesterId;
 }

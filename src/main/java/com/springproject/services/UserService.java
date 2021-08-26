@@ -1,15 +1,9 @@
 package com.springproject.services;
 
+import com.springproject.entities.Role;
 import com.springproject.entities.User;
 
 import java.util.List;
-
-/**
- * Service interface for class {@link User}.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 public interface UserService {
 
@@ -24,4 +18,7 @@ public interface UserService {
     User findById(Long id);
 
     void delete(Long id);
+
+    Role addRole(Role role);
+
 }

@@ -43,27 +43,11 @@ public class Student {
     private String studyForm;
 
     @OneToMany(mappedBy = "student")
-    Set<StudentSemesterOplata> oplata;
+    Set<StudentSemesterPayment> payment;
 
     @OneToMany(mappedBy = "student")
     Set<StudentSemesterGrants> grants;
-    public Student(java.lang.String firstName,
-                   java.lang.String surName,
-                   java.lang.String lastName,
-                   int group,
-                   int faculty,
-                   int yearOfJoining,
-                   long profileTicket,
-                   String studyForm) {
-        this.firstName = firstName;
-        this.surName = surName;
-        this.lastName = lastName;
-        this.group = group;
-        this.faculty = faculty;
-        this.yearOfJoining = yearOfJoining;
-        this.profileTicket = profileTicket;
-        this.studyForm = studyForm;
-    }
+
 
     public Student (StudentRequestDto s) {
         this.firstName = s.getFirstName();

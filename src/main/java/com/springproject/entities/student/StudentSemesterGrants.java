@@ -1,14 +1,19 @@
 package com.springproject.entities.student;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class StudentSemesterGrants {
     @EmbeddedId
-    StudentSemesterOplataKey id;
+    StudentSemesterKey id;
 
     @ManyToOne
     @MapsId("studentId")
@@ -20,6 +25,10 @@ public class StudentSemesterGrants {
     @JoinColumn(name = "semester_id")
     Semester semester;
 
-    boolean oplata;
+
+    @Column(name = "payment_time")
+    LocalDateTime paymentTime;
+
+    boolean payment;
 
 }

@@ -41,10 +41,12 @@ public class MyConfig {
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan(new String[] { "com.springproject.entities" });
-
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
+        em.setJpaProperties(properties);
 
         return em;
     }
@@ -55,6 +57,7 @@ public class MyConfig {
         dataSource.setUrl("jdbc:mysql://localhost:3306/springproject");
         dataSource.setUsername( "root" );
         dataSource.setPassword( "qort0408" );
+
         return dataSource;
     }
     @Bean

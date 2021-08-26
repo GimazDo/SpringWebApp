@@ -19,13 +19,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Implementation of {@link UserService} interface.
- * Wrapper for {@link UserRepository} + business logic.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
 
 @Service
 @RequiredArgsConstructor
@@ -111,5 +104,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void delete(Long id) {
         userRepository.deleteById(id);
         log.info("IN delete - user with id: {} successfully deleted");
+    }
+
+    @Override
+    public Role addRole(Role role) {
+        return roleRepository.save(role);
+
     }
 }

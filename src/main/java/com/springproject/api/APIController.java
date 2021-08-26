@@ -1,4 +1,4 @@
-package com.springproject.controllers.rest;
+package com.springproject.api;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;

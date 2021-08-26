@@ -1,20 +1,23 @@
-package com.springproject.controllers.rest;
-
+package com.springproject.api;
 
 import com.springproject.dto.StudentRequestDto;
+import com.springproject.entities.User;
 import com.springproject.entities.student.Student;
 import com.springproject.repos.StudentRepository;
+import com.springproject.services.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
+@RequiredArgsConstructor
 @Slf4j
-public class StudentRestController {
-@Autowired
+public class StudentResource {
+
     StudentRepository studentRepository;
     @GetMapping("/getAll")
     public @ResponseBody
@@ -36,11 +39,6 @@ public class StudentRestController {
             return "failed";
         }
     }
-
-
-
-
-
 
 
 }

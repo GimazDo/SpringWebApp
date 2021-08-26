@@ -2,6 +2,8 @@ package com.springproject.controllers;
 
 import com.springproject.entities.Account;
 import com.springproject.repos.AccountRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@AllArgsConstructor
+@NoArgsConstructor
 public class AccountController {
 
-    @Autowired
     private AccountRepository accountRepository;
     @GetMapping("/account")
     public String account(Model model) {

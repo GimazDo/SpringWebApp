@@ -70,45 +70,45 @@ public class StudentController {
         model.addAttribute("students", students);
         return "student/showStudentPanel";
     }
-    @PostMapping("/fromFile")
-    public java.lang.String convertFromFile(@RequestParam MultipartFile file)
-    {
-        List<Student> students = convertFromExelToDB(file);
-        studentRepository.saveAll(students);
-        return "home";
-    }
+
     @GetMapping("/")
     public java.lang.String showSort(Model model)
     {
         return "studentMain";
     }
 
-
-    public List<Student> convertFromExelToDB(MultipartFile file)
-    {
-        ArrayList<Student> students = new ArrayList<Student>();
-        try {
-            java.lang.String text = new BufferedReader(
-                    new InputStreamReader( file.getInputStream(), StandardCharsets.UTF_16))
-                    .lines()
-                    .collect(Collectors.joining("\n"));
-            System.out.println(text);
-            java.lang.String[] ss = text.split("\n");
-            for (java.lang.String s: ss) {
-                char tab = '\t';
-
-
-                java.lang.String[] st = s.split(java.lang.String.valueOf(tab));
-
-                Student student = new Student(st[1],st[0],st[2],Integer.parseInt(st[3]),Integer.parseInt(st[4]),Integer.parseInt(st[5]),Long.parseLong(st[6]), st[7]);
-                students.add(student);
-            }
-        }
-        catch (IOException sa)
-        {
-            log.warn("IN convertFromExelToDB: Cannot convert \n StackTrace: {}", sa.getStackTrace());
-        }
-        return students;
-    }
+//    @PostMapping("/fromFile")
+//    public java.lang.String convertFromFile(@RequestParam MultipartFile file)
+//    {
+//        List<Student> students = convertFromExelToDB(file);
+//        studentRepository.saveAll(students);
+//        return "home";
+//    }
+//    public List<Student> convertFromExelToDB(MultipartFile file)
+//    {
+//        ArrayList<Student> students = new ArrayList<Student>();
+//        try {
+//            java.lang.String text = new BufferedReader(
+//                    new InputStreamReader( file.getInputStream(), StandardCharsets.UTF_16))
+//                    .lines()
+//                    .collect(Collectors.joining("\n"));
+//            System.out.println(text);
+//            java.lang.String[] ss = text.split("\n");
+//            for (java.lang.String s: ss) {
+//                char tab = '\t';
+//
+//
+//                java.lang.String[] st = s.split(java.lang.String.valueOf(tab));
+//
+//                Student student = new Student(st[1],st[0],st[2],Integer.parseInt(st[3]),Integer.parseInt(st[4]),Integer.parseInt(st[5]),Long.parseLong(st[6]), st[7]);
+//                students.add(student);
+//            }
+//        }
+//        catch (IOException sa)
+//        {
+//            log.warn("IN convertFromExelToDB: Cannot convert \n StackTrace: {}", sa.getStackTrace());
+//        }
+//        return students;
+//    }
 
 }
