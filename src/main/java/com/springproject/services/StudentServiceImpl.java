@@ -3,14 +3,10 @@ package com.springproject.services;
 import com.springproject.entities.student.*;
 import com.springproject.repos.SemesterRepository;
 import com.springproject.repos.StudentRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -37,6 +33,18 @@ public class StudentServiceImpl  implements StudentService {
 
     @Override
     public List<Student> findWithFilter(String filter) {
+
+        String[] s = filter.split(" ");
+
+        switch (s[1])
+        {
+            case "firstName": ;
+            case "lastName": ;
+            case "surName": ;
+            case "faculty": ;
+        }
+
+
         return null;
     }
 
@@ -47,31 +55,45 @@ public class StudentServiceImpl  implements StudentService {
     }
 
     @Override
-    public void addPayment(int profileTicket, String semester, boolean payment) {
-        Student student = studentRepository.findStudentByProfileTicket(profileTicket);
-        Semester semester1 = semesterRepository.findSemesterBySemester(semester);
-        StudentSemesterPayment studentSemesterPayment = new StudentSemesterPayment(
-                new StudentSemesterKey(student.getId(), semester1.getId()),
-                student,
-                semester1,
-                LocalDateTime.now(),
-                payment);
+    public boolean addPayment(StudentSemesterPayment studentSemesterPayment) {
+        Student student = studentRepository.findStudentByProfileTicket(studentSemesterPayment.getStudent().getProfileTicket());
+        if(student==null)
+        {
+           return false;
+        }
         student.getPayment().add(studentSemesterPayment);
-        log.info("Payment({}) (semester {}) is assigned to student with profile ticket {}",payment, semester, profileTicket);
+        log.info("Payment({}) (semester {}) is assigned to student with profile ticket {}",
+                studentSemesterPayment.isPayment(),studentSemesterPayment.getSemester().getSemester(),
+                studentSemesterPayment.getStudent().getProfileTicket());
+        return true;
     }
 
     @Override
-    public void addGrants(int profileTicket, String semester, boolean payment) {
-        Student student = studentRepository.findStudentByProfileTicket(profileTicket);
-        Semester semester1 = semesterRepository.findSemesterBySemester(semester);
-        StudentSemesterGrants studentSemesterGrants = new StudentSemesterGrants(
-                new StudentSemesterKey(student.getId(), semester1.getId()),
-                student,
-                semester1,
-                LocalDateTime.now(),
-                payment);
+    public boolean addGrants(StudentSemesterGrants studentSemesterGrants) {
 
+        Student student = studentRepository.findStudentByProfileTicket(studentSemesterGrants.getStudent().getProfileTicket());
+        if(student==null)
+        {
+            return false;
+        }
         student.getGrants().add(studentSemesterGrants);
-        log.info("Grants({}) (semester {}) is assigned to student with profile ticket {}",payment, semester, profileTicket);
+        log.info("Grants({}) with type {} (semester {}) is assigned to student with profile ticket {}",
+                studentSemesterGrants.isStatus(),studentSemesterGrants.getType(),
+                studentSemesterGrants.getSemester().getSemester(), studentSemesterGrants.getStudent().getProfileTicket());
+        return true;
+    }
+
+    @Override
+    public boolean addSocialNetwork(StudentSocialNetwork studentSocialNetwork) {
+        Student student = studentRepository.findStudentByProfileTicket(studentSocialNetwork.getStudent().getProfileTicket());
+        if(student==null)
+        {
+            return false;
+        }
+        student.getSocialNetworks().add(studentSocialNetwork);
+        log.info("Social network ({} :{}) id assigned to student with profile ticket {}",
+                studentSocialNetwork.getSocialNetworkId().getType(),studentSocialNetwork.getUrl(),studentSocialNetwork.getStudent().getProfileTicket());
+
+        return true;
     }
 }

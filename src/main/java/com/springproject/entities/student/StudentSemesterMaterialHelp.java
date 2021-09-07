@@ -6,31 +6,26 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @EqualsAndHashCode
-public class StudentSemesterPayment {
+public class StudentSemesterMaterialHelp {
     @EmbeddedId
-    StudentSemesterKey id;
+    private StudentSemesterKey id;
 
     @ManyToOne
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
-    Student student;
+    private Student student;
 
     @ManyToOne
     @MapsId("semesterId")
     @JoinColumn(name = "semester_id")
-    Semester semester;
+    private Semester semester;
 
-    @Column(name = "payment_time")
-    LocalDateTime paymentTime;
-
-
-
-    boolean payment;
+    @Column(name = "status")
+    private boolean status;
 }

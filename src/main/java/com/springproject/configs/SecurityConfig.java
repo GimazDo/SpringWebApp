@@ -46,13 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable()
 
                 .authorizeRequests()
-                    .antMatchers("/student/**").authenticated()
+                    .antMatchers("api/student/**").permitAll()
                     .antMatchers("/profile/**").authenticated()
                 .antMatchers("/api/user/**").authenticated()
                     .antMatchers("/api/login/**").permitAll()
 
                     .antMatchers("/login/**").permitAll()
                     .antMatchers("/admin/**").hasAnyRole("ADMIN");
+        http.formLogin();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

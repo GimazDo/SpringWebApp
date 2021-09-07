@@ -1,6 +1,5 @@
 package com.springproject.entities.student;
 
-import com.springproject.dto.StudentRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +41,18 @@ public class Student {
     @Column(name = "study_form")
     private String studyForm;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "hostel", nullable = true)
+    private String hostel;
+
+    @OneToMany(mappedBy = "student")
+    Set<StudentSocialNetwork> socialNetworks;
+
+    @OneToMany(mappedBy = "student")
+    Set<StudentSemesterMaterialHelp> materialHelps;
+
     @OneToMany(mappedBy = "student")
     Set<StudentSemesterPayment> payment;
 
@@ -49,27 +60,25 @@ public class Student {
     Set<StudentSemesterGrants> grants;
 
 
-    public Student (StudentRequestDto s) {
-        this.firstName = s.getFirstName();
-        this.surName = s.getSurName();
-        this.lastName = s.getLastName();
-        this.group = s.getGroup();
-        this.faculty = s.getFaculty();
-        this.yearOfJoining = s.getYearOfJoining();
-        this.profileTicket = s.getProfileTicket();
-        this.studyForm = s.getString();
-    }
-    public StudentRequestDto toDto()
-    {
-        StudentRequestDto studentRequestDto = new StudentRequestDto();
-        studentRequestDto.setFirstName(getFirstName());
-        studentRequestDto.setSurName(getSurName());
-        studentRequestDto.setGroup(getGroup());
-        studentRequestDto.setFaculty(getFaculty());
-        studentRequestDto.setString(getStudyForm());
-        studentRequestDto.setYearOfJoining(getYearOfJoining());
-        studentRequestDto.setProfileTicket(getProfileTicket());
-
-        return studentRequestDto;
+    public Student(String firstName, String surName, String lastName,
+                   int group, int faculty, int yearOfJoining,
+                   long profileTicket, String studyForm, String phoneNumber,
+                   String hostel, Set<StudentSocialNetwork> socialNetworks,
+                   Set<StudentSemesterMaterialHelp> materialHelps,
+                   Set<StudentSemesterPayment> payment, Set<StudentSemesterGrants> grants) {
+        this.firstName = firstName;
+        this.surName = surName;
+        this.lastName = lastName;
+        this.group = group;
+        this.faculty = faculty;
+        this.yearOfJoining = yearOfJoining;
+        this.profileTicket = profileTicket;
+        this.studyForm = studyForm;
+        this.phoneNumber = phoneNumber;
+        this.hostel = hostel;
+        this.socialNetworks = socialNetworks;
+        this.materialHelps = materialHelps;
+        this.payment = payment;
+        this.grants = grants;
     }
 }

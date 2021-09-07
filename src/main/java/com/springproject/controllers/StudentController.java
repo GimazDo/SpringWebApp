@@ -67,7 +67,7 @@ public class StudentController {
     public java.lang.String showSt(Model model)
     {
         List<Student> students = studentRepository.findAll();
-        model.addAttribute("students", students);
+            model.addAttribute("students", students);
         return "student/showStudentPanel";
     }
 

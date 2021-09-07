@@ -13,22 +13,23 @@ import java.time.LocalDateTime;
 @Data
 public class StudentSemesterGrants {
     @EmbeddedId
-    StudentSemesterKey id;
+    private StudentSemesterKey id;
 
     @ManyToOne
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
-    Student student;
+    private Student student;
 
     @ManyToOne
     @MapsId("semesterId")
     @JoinColumn(name = "semester_id")
-    Semester semester;
+    private Semester semester;
 
+    @Column(name = "status")
+    private boolean status;
 
-    @Column(name = "payment_time")
-    LocalDateTime paymentTime;
+    @Column(name = "type")
+    private String type;
 
-    boolean payment;
 
 }

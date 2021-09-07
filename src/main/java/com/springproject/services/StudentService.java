@@ -1,7 +1,6 @@
 package com.springproject.services;
 
-import com.springproject.entities.student.Semester;
-import com.springproject.entities.student.Student;
+import com.springproject.entities.student.*;
 
 import java.util.List;
 
@@ -16,8 +15,11 @@ public interface StudentService {
 
     public Semester addSemester(Semester semester);
 
-    public void addPayment(int profileTicket, String semester, boolean payment);
+    public boolean addPayment(StudentSemesterPayment studentSemesterPayment);
 
-    public void  addGrants(int profileTicket, String semester, boolean payment);
+    public boolean  addGrants(StudentSemesterGrants studentSemesterGrants);
+
+    public boolean addSocialNetwork(StudentSocialNetwork studentSocialNetwork);
+
 
 }
